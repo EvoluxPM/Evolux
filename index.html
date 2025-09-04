@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolux - Персональная страница</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa8a8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa8a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .info-card h2 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #ffa8a8;
+        }
+        
+        .info-card h2 i {
+            margin-right: 10px;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            min-width: 120px;
+            color: #ccc;
+        }
+        
+        .info-value {
+            color: #fff;
+        }
+        
+        .guarantee {
+            background: rgba(76, 175, 80, 0.15);
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .contact {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .telegram-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #0088cc;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.2);
+        }
+        
+        .telegram-btn:hover {
+            background: #006da3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+        }
+        
+        .telegram-btn i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .online-status {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(76, 175, 80, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #4CAF50;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 107, 107, 0.5);
+            font-size: 20px;
+            animation: float 6s ease-in infinite;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-80px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* Стили для видео */
+        .video-container {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        video {
+            width: 100%;
+            display: block;
+            border-radius: 15px;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #2c3e50, #4ca1af);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-placeholder i {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .info-item {
+                flex-direction: column;
+            }
+            
+            .info-label {
+                margin-bottom: 5px;
+            }
+            
+            .video-placeholder {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <header>
+            <div class="avatar">
+                <span>E</span>
+            </div>
+            <h1>Evolux</h1>
+            <p class="tagline">Добро пожаловать на мою персональную страницу</p>
+        </header>
+        
+        <!-- Видео-секция -->
+        <section class="info-card">
+            <h2><i class="fas fa-video"></i> Моё видео</h2>
+            
+            <!-- Способ 1: Загруженное видео (раскомментируйте для использования) -->
+            <!--
+            <div class="video-container">
+                <video controls poster="preview.jpg">
+                    <source src="your-video.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+            -->
+            
+            <!-- Способ 2: YouTube видео (раскомментируйте для использования) -->
+            <!--
+            <div class="video-container">
+                <iframe width="100%" height="400" src="https://www.youtube.com/embed/ВАШ_ИДЕНТИФИКАТОР" 
+                frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen style="border-radius: 15px;"></iframe>
+            </div>
+            -->
+            
+            <!-- Способ 3: Плейсхолдер (пока вы не добавите своё видео) -->
+            <div class="video-placeholder">
+                <i class="fas fa-video"></i>
+                <h3>Здесь будет ваше видео</h3>
+                <p>Добавьте своё видео, следуя инструкции ниже</p>
+            </div>
+            
+            <div class="guarantee">
+                <h3>Как добавить видео?</h3>
+                <p>1. Сохраните видео в папку с сайтом</p>
+                <p>2. Раскомментируйте код для способа 1 выше</p>
+                <p>3. Замените "your-video.mp4" на название вашего файла</p>
+                <p>ИЛИ</p>
+                <p>1. Загрузите видео на YouTube</p>
+                <p>2. Раскомментируйте код для способа 2 выше</p>
+                <p>3. Замените "ВАШ_ИДЕНТИФИКАТОР" на ID вашего видео</p>
+            </div>
+        </section>
+        
+        <section class="info-card">
+            <h2><i class="fas fa-user"></i> Моя информация</h2>
+            
+            <div class="info-item">
+                <div class="info-label">Никнейм:</div>
+                <div class="info-value">Evolux</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Имя:</div>
+                <div class="info-value">???</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Возраст:</div>
+                <div class="info-value">15</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">Страна:</div>
+                <div class="info-value">Russia</div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-label">В сети:</div>
+                <div class="info-value">9:00 - 1:00 (MSK)</div>
+            </div>
+        </section>
+        
+        <section class="info-card">
+            <h2><i class="fas fa-shield-alt"></i> Гарант</h2>
+            <p>Я предоставляю услуги гаранта для безопасного проведения сделок.</p>
+            
+            <div class="guarantee">
+                <h3>Почему это безопасно?</h3>
+                <p>Как гарант, я обеспечиваю:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Полную безопасность сделки для обеих сторон</li>
+                    <li>Проверку легитимности сделки</li>
+                    <li>Конфиденциальность информации</li>
+                    <li>Посредничество при возникновении споров</li>
+                    <li>Возврат средств в случае невыполнения условий сделки</li>
+                </ul>
+                <p style="margin-top: 15px;">Я дорожу своей репутацией и гарантирую честное отношение ко всем сделкам.</p>
+            </div>
+        </section>
+        
+        <section class="contact">
+            <h2><i class="fas fa-paper-plane"></i> Связь со мной</h2>
+            <p>По всем вопросам обращайтесь в Telegram:</p>
+            <a href="https://t.me/IEvolux" class="telegram-btn">
+                <i class="fab fa-telegram"></i> @IEvolux
+            </a>
+            
+            <div class="online-status">
+                <div class="online-dot"></div>
+                <span>Сейчас онлайн (в соответствии с расписанием)</span>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 Evolux. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Создаем плавающие сердечки
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '🤍';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        // Проверяем текущее время для отображения статуса онлайн
+        function updateOnlineStatus() {
+            const statusElement = document.querySelector('.online-status span');
+            const now = new Date();
+            const hours = now.getHours();
+            const mskOffset = 3; // MSK UTC+3
+            const currentMskTime = (hours + mskOffset) % 24;
+            
+            // Проверяем, находится ли текущее время в диапазоне 9:00 - 1:00 MSK
+            const isOnline = (currentMskTime >= 9 || currentMskTime < 1);
+            
+            if (isOnline) {
+                statusElement.textContent = 'Сейчас онлайн';
+            } else {
+                statusElement.textContent = 'Сейчас оффлайн (по расписанию)';
+                document.querySelector('.online-dot').style.background = '#ccc';
+                document.querySelector('.online-dot').style.animation = 'none';
+            }
+        }
+        
+        // Инициализация при загрузке страницы
+        window.onload = function() {
+            createHearts();
+            updateOnlineStatus();
+        };
+    </script>
+</body>
+</html>
