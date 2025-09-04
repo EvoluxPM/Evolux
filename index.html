@@ -84,6 +84,7 @@
             padding: 100px 0;
             text-align: center;
             background: radial-gradient(circle at top, var(--gray), var(--dark));
+            position: relative;
         }
         
         .hero-content {
@@ -151,6 +152,41 @@
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(110, 69, 226, 0.5);
+        }
+        
+        /* Visitor Counter */
+        .visitor-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px 15px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            animation: fadeIn 1s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(110, 69, 226, 0.3);
+        }
+        
+        .visitor-counter i {
+            color: var(--primary);
+        }
+        
+        .counter-number {
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* About Section */
@@ -303,6 +339,7 @@
             background-color: var(--darker);
             padding: 40px 0;
             text-align: center;
+            position: relative;
         }
         
         .footer-content {
@@ -327,6 +364,12 @@
             color: var(--primary);
         }
         
+        .footer-counter {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
         /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
@@ -344,6 +387,13 @@
             .contact-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .visitor-counter {
+                top: 10px;
+                right: 10px;
+                font-size: 0.8rem;
+                padding: 8px 12px;
             }
         }
     </style>
@@ -369,6 +419,11 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="visitor-counter">
+            <i class="fas fa-eye"></i>
+            <span>Посетителей: <span class="counter-number" id="visitorCount">0</span></span>
+        </div>
+        
         <div class="container">
             <div class="hero-content">
                 <div class="status">
@@ -508,6 +563,9 @@
                 <div class="social-links">
                     <a href="https://t.me/EvoluxEx"><i class="fab fa-telegram"></i></a>
                 </div>
+                <div class="footer-counter">
+                    <span>Этот сайт посетили: <span class="counter-number" id="footerVisitorCount">0</span> человек</span>
+                </div>
                 <p>© 2023 EvoluxEx. Все права защищены.</p>
             </div>
         </div>
@@ -550,8 +608,61 @@
             }
         }
         
-        // Запуск при загрузке и обновление каждую минуту
+        // Счетчик посетителей
+        function updateVisitorCounter() {
+            // Пытаемся получить текущее значение из localStorage
+            let count = localStorage.getItem('visitorCount');
+            
+            // Если значения нет, инициализируем его
+            if (!count) {
+                count = 0;
+            } else {
+                count = parseInt(count);
+            }
+            
+            // Проверяем, был ли пользователь уже учтен в этой сессии
+            const isCounted = sessionStorage.getItem('isCounted');
+            
+            if (!isCounted) {
+                // Увеличиваем счетчик
+                count++;
+                // Сохраняем обновленное значение
+                localStorage.setItem('visitorCount', count);
+                // Отмечаем, что пользователь учтен в этой сессии
+                sessionStorage.setItem('isCounted', 'true');
+            }
+            
+            // Обновляем отображение счетчика
+            document.getElementById('visitorCount').textContent = count.toLocaleString();
+            document.getElementById('footerVisitorCount').textContent = count.toLocaleString();
+            
+            // Анимируем увеличение счетчика
+            animateCounter('visitorCount', count);
+            animateCounter('footerVisitorCount', count);
+        }
+        
+        // Функция для анимации счетчика
+        function animateCounter(elementId, finalValue) {
+            const element = document.getElementById(elementId);
+            const duration = 2000; // длительность анимации в мс
+            const step = 20; // шаг обновления в мс
+            const steps = duration / step;
+            const increment = finalValue / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= finalValue) {
+                    clearInterval(timer);
+                    current = finalValue;
+                }
+                element.textContent = Math.round(current).toLocaleString();
+            }, step);
+        }
+        
+        // Запуск при загрузке
         updateStatus();
+        updateVisitorCounter();
         setInterval(updateStatus, 60000);
     </script>
 </body>
